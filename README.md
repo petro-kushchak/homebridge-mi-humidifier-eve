@@ -1,19 +1,8 @@
-# homebridge-mi-humidifier
+# A Xiaomi Mi humidifier plugin for Homebridge.
 
-[![verified-by-homebridge](https://badgen.net/badge/homebridge/verified/purple)](https://github.com/homebridge/homebridge/wiki/Verified-Plugins)
-[![version](https://img.shields.io/npm/v/homebridge-mi-humidifier.svg)](https://www.npmjs.com/package/homebridge-mi-humidifier)
-[![downloads](https://img.shields.io/npm/dt/homebridge-mi-humidifier.svg)](https://www.npmjs.com/package/homebridge-mi-humidifier)
-[![donate](https://img.shields.io/badge/donate-buymeacoffee-%23FFDD04)](https://www.buymeacoffee.com/russtone)
 
-A Xiaomi Mi humidifier plugin for Homebridge.
-
-⚠️ The config format was changed in version 2. See the [configuration](#Configuration) section for more details.
-
-## Installation
-
-```
-npm install -g homebridge-mi-humidifier
-```
+This plugins is based on https://github.com/russtone/homebridge-mi-humidifier
+plugin allows to SHARE data to another Homebridge plugins using "globals" dictionary
 
 ## Configuration
 
@@ -21,7 +10,7 @@ Add the following part to the "platforms" section of your [Homebridge config](ht
 
 ```json
 {
-  "platform": "MiHumidifier",
+  "platform": "MiHumidifierGlobals",
   "devices": [
     {
       "name": "Humidifier",
@@ -32,6 +21,7 @@ Add the following part to the "platforms" section of your [Homebridge config](ht
       "disabled": false,
       "autoSwitchToHumidityMode": true,
       "disableTargetHumidity": false,
+      "globalsDataPath": "miHumidifier",
       "ledBulb": {
         "enabled": true,
         "name": "Humidifier LED"

@@ -1,5 +1,5 @@
 {
-  "pluginAlias": "MiHumidifier",
+  "pluginAlias": "MiHumidifierGlobals",
   "pluginType": "platform",
   "schema": {
     "devices": {
@@ -57,6 +57,11 @@
             "title": "Disables ability to control target humidity. In this case long press on device in Home.app will allow to control fan speed instead of target humidity.",
             "type": "boolean",
             "default": false
+          },
+          "globalsDataPath": {
+            "title": "Path to store device data within globals dictionary",
+            "type": "string",
+            "default": ""
           },
           "temperatureSensor": {
             "title": "Temperature sensor",

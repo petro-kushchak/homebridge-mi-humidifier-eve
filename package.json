@@ -1,5 +1,5 @@
 {
-  "name": "homebridge-mi-humidifier",
+  "name": "homebridge-mi-humidifier-globals",
   "version": "2.4.2",
   "description": "Xiaomi Mi Humidifier plugin for Homebridge",
   "main": "dist/index.js",
@@ -19,7 +19,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/russtone/homebridge-mi-humidifier.git"
+    "url": "https://github.com/petro-kushchak/homebridge-mi-humidifier-globals"
   },
   "dependencies": {
     "miio-api": "^0.4.1"

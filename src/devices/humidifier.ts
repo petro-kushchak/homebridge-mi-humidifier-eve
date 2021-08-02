@@ -2,7 +2,7 @@ import type * as hb from "homebridge";
 import type * as hap from "hap-nodejs";
 
 import * as miio from "miio-api";
-import { PlatformAccessory } from "../platform";
+import { DeviceOptions, PlatformAccessory } from "../platform";
 import { Humidifier } from "./factory";
 import { AnyCharacteristicConfig } from "./features";
 import { Protocol } from "./protocols";
@@ -21,6 +21,7 @@ export class BaseHumidifier<PropsType extends BasePropsType>
   private readonly protocol: Protocol<PropsType>;
   private readonly features: Array<AnyCharacteristicConfig<PropsType>>;
   private readonly log: Logger;
+  private readonly options: DeviceOptions;
 
   private props: GetEntry<PropsType>[];
   private cache: PropsType;
@@ -34,6 +35,7 @@ export class BaseHumidifier<PropsType extends BasePropsType>
     protocol: Protocol<PropsType>,
     features: Array<AnyCharacteristicConfig<PropsType>>,
     log: Logger,
+    options: DeviceOptions,
   ) {
     this.protocol = protocol;
     this.features = features;
@@ -41,6 +43,7 @@ export class BaseHumidifier<PropsType extends BasePropsType>
 
     this.props = [];
     this.cache = {} as PropsType;
+    this.options = options;
   }
 
   /**
@@ -111,6 +114,17 @@ export class BaseHumidifier<PropsType extends BasePropsType>
           value.characteristic.updateValue(charValue);
         });
       });
+      if (this.options.globalsDataPath) {
+        const path = this.options.globalsDataPath.split("/");
+        let root = global as any;
+        path.forEach(entry => {
+          if (!root[entry]){
+            root[entry] = {}
+          } ;
+          root = root[entry];
+        });
+        root = this.cache;
+      }
     } catch (err) {
       this.log.error(
         `Fail to get device properties. ${err.constructor.name}: ${err.message}`,
