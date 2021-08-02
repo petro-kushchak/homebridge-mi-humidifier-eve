@@ -117,13 +117,14 @@ export class BaseHumidifier<PropsType extends BasePropsType>
       if (this.options.globalsDataPath) {
         const path = this.options.globalsDataPath.split("/");
         let root = global as any;
+        const last = path.pop() as string;
         path.forEach(entry => {
           if (!root[entry]){
             root[entry] = {}
-          } ;
+          };
           root = root[entry];
         });
-        root = this.cache;
+        root[last] = this.cache;
       }
     } catch (err) {
       this.log.error(

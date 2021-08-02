@@ -61,7 +61,7 @@
           "globalsDataPath": {
             "title": "Path to store device data within globals dictionary",
             "type": "string",
-            "default": ""
+            "default": "Mi/Humidifier"
           },
           "temperatureSensor": {
             "title": "Temperature sensor",
