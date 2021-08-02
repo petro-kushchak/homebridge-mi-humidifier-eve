@@ -1,5 +1,5 @@
 {
-  "name": "homebridge-mi-humidifier-globals",
+  "name": "@petro-kushchak/homebridge-mi-humidifier-globals",
   "version": "2.4.2",
   "description": "Xiaomi Mi Humidifier plugin for Homebridge",
   "main": "dist/index.js",
