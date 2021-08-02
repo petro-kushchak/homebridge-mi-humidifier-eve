@@ -1,9 +1,9 @@
 {
   "name": "@petro-kushchak/homebridge-mi-humidifier-globals",
-  "version": "2.4.2",
-  "description": "Xiaomi Mi Humidifier plugin for Homebridge",
+  "version": "0.0.1",
+  "description": "Xiaomi Mi Humidifier plugin for Homebridge with Data Sharing over globals",
   "main": "dist/index.js",
-  "author": "russtone@yandex.ru",
+  "author": "pkushchak@gmail.com",
   "license": "MIT",
   "types": "dist/index.d.ts",
   "scripts": {
