@@ -3,8 +3,8 @@ import miio from "miio-api";
 import { Humidifier, HumidifierModel, createHumidifier } from "./devices";
 import { validateConfig } from "./validation";
 
-export const PluginName = "homebridge-mi-humidifier-globals";
-export const PlatformName = "MiHumidifierGlobals";
+export const PluginName = "homebridge-mi-humidifier-fakegato";
+export const PlatformName = "MiHumidifierEve";
 
 export class MiHumidifierPlatform implements hb.DynamicPlatformPlugin {
   private readonly log: hb.Logging;
@@ -197,7 +197,6 @@ export type DeviceOptions = {
   };
   autoSwitchToHumidityMode?: boolean;
   disableTargetHumidity?: boolean;
-  globalsDataPath?: string;
 };
 
 /**

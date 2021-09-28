@@ -125,6 +125,8 @@ export interface Features<PropsType extends BasePropsType> {
     params: {
       name?: string;
       toChar?: (it: PropsType[PropKey]) => hb.CharacteristicValue;
+      historyType?: string;
+      historyKey?: string;
     },
   ): Array<AnyCharacteristicConfig<PropsType>>;
 
@@ -480,6 +482,8 @@ export function features<PropsType extends BasePropsType>(
           get: {
             map: params.toChar as GetMapFunc<PropsType>,
           },
+          historyType: params.historyType,
+          historyKey: params.historyKey
         },
       ];
     },

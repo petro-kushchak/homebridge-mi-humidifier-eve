@@ -60,6 +60,7 @@ export async function createHumidifier(
   const { protocol, features: feats } = configFunc(device, feat, log, options);
 
   return new BaseHumidifier(
+    api,
     protocol,
     [...feat.accessoryInfo(name, model, device.id), ...feats],
     new Logger(log, `[${address}] `),

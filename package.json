@@ -1,7 +1,7 @@
 {
-  "name": "@petro-kushchak/homebridge-mi-humidifier-globals",
+  "name": "@petro-kushchak/homebridge-mi-humidifier-fakegato",
   "version": "0.0.2",
-  "description": "Xiaomi Mi Humidifier plugin for Homebridge with Data Sharing over globals",
+  "description": "Xiaomi Mi Humidifier plugin for Homebridge with Eve Fakegato history support",
   "main": "dist/index.js",
   "author": "pkushchak@gmail.com",
   "license": "MIT",
@@ -19,9 +19,10 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/petro-kushchak/homebridge-mi-humidifier-globals"
+    "url": "https://github.com/petro-kushchak/homebridge-mi-humidifier-fakegato"
   },
   "dependencies": {
+    "fakegato-history": "^0.6.2",
     "miio-api": "^0.4.1"
   },
   "engines": {
