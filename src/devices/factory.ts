@@ -1,5 +1,5 @@
 import type * as hb from "homebridge";
-import miio, { Device } from "miio-api";
+import miio from "miio-api";
 import { DeviceOptions, PlatformAccessory } from "../platform";
 import {
   HumidifierModel,
@@ -18,17 +18,6 @@ export type DeviceInfo = {
   mac: string;
   fw_ver: string;
   hw_ver: string;
-};
-
-const getInfo = async (device: Device): Promise<DeviceInfo> => {
-  try {
-    return await device.call<[], DeviceInfo>("miIO.info");
-  } catch (err) {
-    throw new HumidifierError(
-      `Fail to get 'miIO.info' of device ${device.id}`,
-      err,
-    );
-  }
 };
 
 export async function createHumidifier(
@@ -64,7 +53,7 @@ export async function createHumidifier(
     protocol,
     [...feat.accessoryInfo(name, model, device.id), ...feats],
     new Logger(log, `[${address}] `),
-    options
+    options,
   );
 }
 

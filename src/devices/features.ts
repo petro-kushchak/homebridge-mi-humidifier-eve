@@ -483,7 +483,7 @@ export function features<PropsType extends BasePropsType>(
             map: params.toChar as GetMapFunc<PropsType>,
           },
           historyType: params.historyType,
-          historyKey: params.historyKey
+          historyKey: params.historyKey,
         },
       ];
     },

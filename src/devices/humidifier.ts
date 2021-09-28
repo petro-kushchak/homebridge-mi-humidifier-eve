@@ -8,7 +8,7 @@ import { AnyCharacteristicConfig } from "./features";
 import { Protocol } from "./protocols";
 import { ValueOf } from "./utils";
 import { Logger } from "./logger";
-import { EveHistoryService, HistoryServiceEntry } from "lib/eve-history";
+import { EveHistoryService, HistoryServiceEntry } from "../lib/eve-history";
 
 /**
  * Base class for all humidifiers, all humidifiers must inherit from this class.
@@ -86,14 +86,19 @@ export class BaseHumidifier<PropsType extends BasePropsType>
     //create history services for accessory
     const historyTypes = new Set<string>();
     this.features.forEach((feature) => {
-      if ('historyType' in feature) {
-        historyTypes.add(feature['historyType']);
+      if ("historyType" in feature) {
+        historyTypes.add(feature["historyType"]);
       }
     });
 
     this.log.debug("Identified requested history types: ", historyTypes);
-    historyTypes.forEach(type => {
-      this.historyServices[type] = new EveHistoryService(type, accessory, this.api, this.log as unknown as hb.Logging);
+    historyTypes.forEach((type) => {
+      this.historyServices[type] = new EveHistoryService(
+        type,
+        accessory,
+        this.api,
+        (this.log as unknown) as hb.Logging,
+      );
     });
   }
 
@@ -178,24 +183,31 @@ export class BaseHumidifier<PropsType extends BasePropsType>
       // if history props are defined:
       // call original getMap,
       // and add value to history service entries
-      if ('historyKey' in config && 'historyType' in config) {
+      if ("historyKey" in config && "historyType" in config) {
         getMap = (it: ValueOf<PropsType>) => {
           const result = getMap(it);
 
-          const historyType = config['historyType'];
+          const historyType = config["historyType"];
           const historyService = this.historyServices[historyType];
           if (historyService) {
-            const entry: HistoryServiceEntry = { time: Math.round(new Date().valueOf() / 1000) };
-            const entryKey: string = config['historyKey'];
-            entry[entryKey] = parseInt(' ' + result.valueOf());
-            this.log.debug('Adding history entry, type:', historyType, ' entry: ', entry);
+            const entry: HistoryServiceEntry = {
+              time: Math.round(new Date().valueOf() / 1000),
+            };
+            const entryKey: string = config["historyKey"];
+            entry[entryKey] = parseInt(" " + result.valueOf());
+            this.log.debug(
+              "Adding history entry, type:",
+              historyType,
+              " entry: ",
+              entry,
+            );
             historyService.addEntry(entry);
           } else {
-            this.log.debug('Could not log history entry, type:', historyType);
+            this.log.debug("Could not log history entry, type:", historyType);
           }
 
           return result;
-        }
+        };
       }
 
       const entry = this.props.find((prop) => prop.key === config.key);
@@ -448,8 +460,8 @@ export type CharacteristicConfigStatic = {
   props?: Partial<hb.CharacteristicProps>;
   // HomeKit characteristic value.
   value:
-  | hb.CharacteristicValue
-  | ((callback: hb.CharacteristicGetCallback) => void);
+    | hb.CharacteristicValue
+    | ((callback: hb.CharacteristicGetCallback) => void);
 };
 
 export type CharacteristicConfigDynamic<PropsType, PropKey, PropValue> = {

@@ -10,7 +10,7 @@ Add the following part to the "platforms" section of your [Homebridge config](ht
 
 ```json
 {
-  "platform": "MiHumidifierGlobals",
+  "platform": "MiHumidifierEve",
   "devices": [
     {
       "name": "Humidifier",

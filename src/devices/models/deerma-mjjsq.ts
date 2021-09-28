@@ -102,9 +102,9 @@ export function deermaMJJSQ(
         ? feat.temperatureSensor("TemperatureValue", {
             name: options.temperatureSensor.name,
             toChar: (it) => it,
-            historyType: 'room',
-            historyKey: 'temp',
-            })
+            historyType: "room",
+            historyKey: "temp",
+          })
         : []),
     ],
   };

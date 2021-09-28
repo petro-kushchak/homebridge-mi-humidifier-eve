@@ -1,39 +1,53 @@
-import fakegato from 'fakegato-history';
-import { AccessoryPlugin, API, Logging, PlatformAccessory, Service } from 'homebridge';
+import fakegato from "fakegato-history";
+import {
+  AccessoryPlugin,
+  API,
+  Logging,
+  PlatformAccessory,
+  Service,
+} from "homebridge";
 
-export interface HistoryServiceEntry extends Record<string,number> {
-    time: number;
+export interface HistoryServiceEntry extends Record<string, number> {
+  time: number;
 }
 
 export interface HistoryService {
-    addEntry(entry: HistoryServiceEntry): void;
+  addEntry(entry: HistoryServiceEntry): void;
 }
 
 export interface HistoryServiceStorageReaderOptions {
-    service: unknown;
-    callback: (err: unknown, data: string) => void;
+  service: unknown;
+  callback: (err: unknown, data: string) => void;
 }
 
 export interface HistoryServiceStorage {
-    globalFakeGatoStorage: {
-        read: (options: HistoryServiceStorageReaderOptions) => void;
-    };
+  globalFakeGatoStorage: {
+    read: (options: HistoryServiceStorageReaderOptions) => void;
+  };
 }
 
 export class EveHistoryService {
+  private readonly historyService: unknown;
 
-    private readonly historyService: unknown;
+  constructor(
+    historyType: string,
+    private accessory: AccessoryPlugin | PlatformAccessory,
+    api: API,
+    private logger: Logging,
+  ) {
+    const FakeGatoHistoryService = fakegato(api);
+    this.historyService = new FakeGatoHistoryService(
+      historyType,
+      this.accessory,
+      { storage: "fs", log: this.logger },
+    );
+  }
 
-    constructor(historyType: string, private accessory: AccessoryPlugin | PlatformAccessory, api: API, private logger: Logging) {
-        const FakeGatoHistoryService = fakegato(api);
-        this.historyService = new FakeGatoHistoryService(historyType, this.accessory, { storage: 'fs', log: this.logger });
-    }
+  getService(): Service {
+    return this.historyService as Service;
+  }
 
-    getService(): Service {
-        return this.historyService as Service;
-    }
-
-    addEntry(entry: HistoryServiceEntry) {
-        (this.historyService as HistoryService).addEntry(entry);
-    }
+  addEntry(entry: HistoryServiceEntry): void {
+    (this.historyService as HistoryService).addEntry(entry);
+  }
 }

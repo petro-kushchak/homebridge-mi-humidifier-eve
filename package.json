@@ -1,16 +1,17 @@
 {
   "name": "@petro-kushchak/homebridge-mi-humidifier-fakegato",
-  "version": "0.0.2",
+  "version": "0.0.5",
   "description": "Xiaomi Mi Humidifier plugin for Homebridge with Eve Fakegato history support",
   "main": "dist/index.js",
   "author": "pkushchak@gmail.com",
   "license": "MIT",
   "types": "dist/index.d.ts",
   "scripts": {
-    "build": "tsc",
+    "build": "rimraf ./dist && tsc",
     "format": "prettier --write src",
     "lint": "tsc --noEmit && eslint --ext ts src",
-    "watch": "tsc --watch"
+    "watch": "tsc --watch",
+    "prepublishOnly": "npm run lint && npm run build"
   },
   "keywords": [
     "homebridge-plugin",

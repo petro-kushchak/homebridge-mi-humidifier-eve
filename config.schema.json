@@ -1,5 +1,5 @@
 {
-  "pluginAlias": "MiHumidifierGlobals",
+  "pluginAlias": "MiHumidifierEve",
   "pluginType": "platform",
   "schema": {
     "devices": {
