@@ -184,8 +184,13 @@ export class BaseHumidifier<PropsType extends BasePropsType>
       // call original getMap,
       // and add value to history service entries
       if ("historyKey" in config && "historyType" in config) {
+        const oldMap = getMap;
         getMap = (it: ValueOf<PropsType>) => {
-          const result = getMap(it);
+          const result = oldMap(it);
+
+          if (!result) {
+            return result;
+          }
 
           const historyType = config["historyType"];
           const historyService = this.historyServices[historyType];
