@@ -1,5 +1,5 @@
 {
-  "name": "@petro-kushchak/homebridge-mi-humidifier-fakegato",
+  "name": "@petro-kushchak/homebridge-mi-humidifier-eve",
   "version": "0.0.5",
   "description": "Xiaomi Mi Humidifier plugin for Homebridge with Eve Fakegato history support",
   "main": "dist/index.js",
@@ -20,7 +20,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/petro-kushchak/homebridge-mi-humidifier-fakegato"
+    "url": "https://github.com/petro-kushchak/homebridge-mi-humidifier-eve"
   },
   "dependencies": {
     "fakegato-history": "^0.6.2",

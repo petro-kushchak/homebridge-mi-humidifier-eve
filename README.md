@@ -1,8 +1,6 @@
-# A Xiaomi Mi humidifier plugin for Homebridge.
+# homebridge-mi-humidifier-eve
 
-
-This plugins is based on https://github.com/russtone/homebridge-mi-humidifier
-plugin allows to SHARE data to another Homebridge plugins using "globals" dictionary
+A Xiaomi Mi humidifier plugin for Homebridge with Eve app temp/humidity monitoring.
 
 ## Configuration
 
@@ -47,7 +45,7 @@ Add the following part to the "platforms" section of your [Homebridge config](ht
 
 | Key      | Description                                 |
 | -------- | ------------------------------------------- |
-| platform | Platform name. Has to be `MiHumidifier`     |
+| platform | Platform name. Has to be `MiHumidifierEve`     |
 | devices  | Array of [devices configurations](#device). |
 
 ### Device
