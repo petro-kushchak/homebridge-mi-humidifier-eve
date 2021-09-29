@@ -1,9 +1,8 @@
 {
-  "name": "homebridge-mi-humidifier",
+  "name": "homebridge-mi-humidifier-eve",
   "version": "2.4.2",
   "description": "Xiaomi Mi Humidifier plugin for Homebridge",
   "main": "dist/index.js",
-  "author": "russtone@yandex.ru",
   "license": "MIT",
   "types": "dist/index.d.ts",
   "scripts": {
@@ -19,7 +18,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/russtone/homebridge-mi-humidifier.git"
+    "url": "https://github.com/petro-kushchak/homebridge-mi-humidifier-eve.git"
   },
   "dependencies": {
     "miio-api": "^0.4.1"
