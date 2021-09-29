@@ -1,19 +1,6 @@
-# homebridge-mi-humidifier
+# homebridge-mi-humidifier-eve
 
-[![verified-by-homebridge](https://badgen.net/badge/homebridge/verified/purple)](https://github.com/homebridge/homebridge/wiki/Verified-Plugins)
-[![version](https://img.shields.io/npm/v/homebridge-mi-humidifier.svg)](https://www.npmjs.com/package/homebridge-mi-humidifier)
-[![downloads](https://img.shields.io/npm/dt/homebridge-mi-humidifier.svg)](https://www.npmjs.com/package/homebridge-mi-humidifier)
-[![donate](https://img.shields.io/badge/donate-buymeacoffee-%23FFDD04)](https://www.buymeacoffee.com/russtone)
-
-A Xiaomi Mi humidifier plugin for Homebridge.
-
-⚠️ The config format was changed in version 2. See the [configuration](#Configuration) section for more details.
-
-## Installation
-
-```
-npm install -g homebridge-mi-humidifier
-```
+A Xiaomi Mi humidifier plugin for Homebridge with Eve app temp/humidity monitoring.
 
 ## Configuration
 
@@ -21,7 +8,7 @@ Add the following part to the "platforms" section of your [Homebridge config](ht
 
 ```json
 {
-  "platform": "MiHumidifier",
+  "platform": "MiHumidifierEve",
   "devices": [
     {
       "name": "Humidifier",
@@ -57,7 +44,7 @@ Add the following part to the "platforms" section of your [Homebridge config](ht
 
 | Key      | Description                                 |
 | -------- | ------------------------------------------- |
-| platform | Platform name. Has to be `MiHumidifier`     |
+| platform | Platform name. Has to be `MiHumidifierEve`     |
 | devices  | Array of [devices configurations](#device). |
 
 ### Device
