@@ -195,9 +195,14 @@ export class BaseHumidifier<PropsType extends BasePropsType>
           const historyType = config["historyType"];
           const historyService = this.historyServices[historyType];
           if (historyService) {
-            const entry: HistoryServiceEntry = {
-              time: Math.round(new Date().valueOf() / 1000),
-            };
+            let entry = historyService.getLastEntry();
+            if (!entry) {
+              entry = {
+                time: Math.round(new Date().valueOf() / 1000),
+              };
+            } else {
+              entry.time = Math.round(new Date().valueOf() / 1000);
+            }
             const entryKey: string = config["historyKey"];
             entry[entryKey] = parseInt(" " + result.valueOf());
             this.log.debug(
@@ -283,7 +288,8 @@ export class BaseHumidifier<PropsType extends BasePropsType>
     callback: hb.CharacteristicGetCallback,
   ): void {
     this.log.debug(`Getting property "${key}"`);
-    callback(null, map(this.cache[key]));
+    const value = this.cache[key] ? this.cache[key] : null;
+    callback(null, map(value));
   }
 
   /**

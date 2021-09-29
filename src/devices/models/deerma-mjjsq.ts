@@ -95,6 +95,8 @@ export function deermaMJJSQ(
       ...(options.humiditySensor?.enabled
         ? feat.humiditySensor("Humidity_Value", {
             name: options.humiditySensor.name,
+            historyType: "room",
+            historyKey: "humidity",
           })
         : []),
 

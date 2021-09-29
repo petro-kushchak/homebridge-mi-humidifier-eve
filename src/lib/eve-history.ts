@@ -28,6 +28,7 @@ export interface HistoryServiceStorage {
 
 export class EveHistoryService {
   private readonly historyService: unknown;
+  private lastEntry: HistoryServiceEntry;
 
   constructor(
     historyType: string,
@@ -48,6 +49,11 @@ export class EveHistoryService {
   }
 
   addEntry(entry: HistoryServiceEntry): void {
+    this.lastEntry = entry;
     (this.historyService as HistoryService).addEntry(entry);
+  }
+
+  getLastEntry(): HistoryServiceEntry {
+    return this.lastEntry;
   }
 }

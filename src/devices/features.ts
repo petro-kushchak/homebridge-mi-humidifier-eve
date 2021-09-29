@@ -117,6 +117,8 @@ export interface Features<PropsType extends BasePropsType> {
     key: PropKey,
     params: {
       name?: string;
+      historyType?: string;
+      historyKey?: string;
     },
   ): Array<AnyCharacteristicConfig<PropsType>>;
 
@@ -464,6 +466,8 @@ export function features<PropsType extends BasePropsType>(
           service: Service.HumiditySensor,
           characteristic: Characteristic.CurrentRelativeHumidity,
           key: key,
+          historyType: params.historyType,
+          historyKey: params.historyKey,
         },
       ];
     },
