@@ -2,12 +2,13 @@ import type * as hb from "homebridge";
 import type * as hap from "hap-nodejs";
 
 import * as miio from "miio-api";
-import { PlatformAccessory } from "../platform";
+import { DeviceOptions, PlatformAccessory } from "../platform";
 import { Humidifier } from "./factory";
 import { AnyCharacteristicConfig } from "./features";
 import { Protocol } from "./protocols";
 import { ValueOf } from "./utils";
 import { Logger } from "./logger";
+import { EveHistoryService, HistoryServiceEntry } from "../lib/eve-history";
 
 /**
  * Base class for all humidifiers, all humidifiers must inherit from this class.
@@ -18,12 +19,9 @@ import { Logger } from "./logger";
  */
 export class BaseHumidifier<PropsType extends BasePropsType>
   implements Humidifier {
-  private readonly protocol: Protocol<PropsType>;
-  private readonly features: Array<AnyCharacteristicConfig<PropsType>>;
-  private readonly log: Logger;
-
   private props: GetEntry<PropsType>[];
   private cache: PropsType;
+  private historyServices: Record<string, EveHistoryService> = {};
 
   /**
    * @param protocol device protocol.
@@ -31,14 +29,12 @@ export class BaseHumidifier<PropsType extends BasePropsType>
    * @param log logger.
    */
   constructor(
-    protocol: Protocol<PropsType>,
-    features: Array<AnyCharacteristicConfig<PropsType>>,
-    log: Logger,
+    private readonly api: hb.API,
+    private readonly protocol: Protocol<PropsType>,
+    private readonly features: Array<AnyCharacteristicConfig<PropsType>>,
+    private readonly log: Logger,
+    private readonly options: DeviceOptions,
   ) {
-    this.protocol = protocol;
-    this.features = features;
-    this.log = log;
-
     this.props = [];
     this.cache = {} as PropsType;
   }
@@ -85,6 +81,24 @@ export class BaseHumidifier<PropsType extends BasePropsType>
           service.removeCharacteristic(char);
         }
       });
+    });
+
+    //create history services for accessory
+    const historyTypes = new Set<string>();
+    this.features.forEach((feature) => {
+      if ("historyType" in feature) {
+        historyTypes.add(feature["historyType"]);
+      }
+    });
+
+    this.log.debug("Identified requested history types: ", historyTypes);
+    historyTypes.forEach((type) => {
+      this.historyServices[type] = new EveHistoryService(
+        type,
+        accessory,
+        this.api,
+        (this.log as unknown) as hb.Logging,
+      );
     });
   }
 
@@ -162,9 +176,39 @@ export class BaseHumidifier<PropsType extends BasePropsType>
       }
     } else {
       // Dynamic characteristic.
-      const getMap = config.get?.map
+      let getMap = config.get?.map
         ? (config.get.map as GetMapFunc<PropsType>)
         : (it: PrimitiveType) => it; // by default return the same value.
+
+      // if history props are defined:
+      // call original getMap,
+      // and add value to history service entries
+      if ("historyKey" in config && "historyType" in config) {
+        getMap = (it: ValueOf<PropsType>) => {
+          const result = getMap(it);
+
+          const historyType = config["historyType"];
+          const historyService = this.historyServices[historyType];
+          if (historyService) {
+            const entry: HistoryServiceEntry = {
+              time: Math.round(new Date().valueOf() / 1000),
+            };
+            const entryKey: string = config["historyKey"];
+            entry[entryKey] = parseInt(" " + result.valueOf());
+            this.log.debug(
+              "Adding history entry, type:",
+              historyType,
+              " entry: ",
+              entry,
+            );
+            historyService.addEntry(entry);
+          } else {
+            this.log.debug("Could not log history entry, type:", historyType);
+          }
+
+          return result;
+        };
+      }
 
       const entry = this.props.find((prop) => prop.key === config.key);
 

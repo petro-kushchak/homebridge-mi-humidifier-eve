@@ -19,6 +19,7 @@ Add the following part to the "platforms" section of your [Homebridge config](ht
       "disabled": false,
       "autoSwitchToHumidityMode": true,
       "disableTargetHumidity": false,
+      "globalsDataPath": "Mi/Humidifier",
       "ledBulb": {
         "enabled": true,
         "name": "Humidifier LED"

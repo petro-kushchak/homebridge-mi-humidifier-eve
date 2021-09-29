@@ -56,6 +56,7 @@ class Proto extends MiioProtocol<Props> {
     };
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   prepareGetArgs(_props: Array<keyof Props>): string[] {
     return [];
   }

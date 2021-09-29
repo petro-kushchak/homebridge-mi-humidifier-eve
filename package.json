@@ -1,15 +1,17 @@
 {
-  "name": "homebridge-mi-humidifier-eve",
-  "version": "2.4.2",
-  "description": "Xiaomi Mi Humidifier plugin for Homebridge",
+  "name": "@petro-kushchak/homebridge-mi-humidifier-eve",
+  "version": "0.0.5",
+  "description": "Xiaomi Mi Humidifier plugin for Homebridge with Eve Fakegato history support",
   "main": "dist/index.js",
+  "author": "pkushchak@gmail.com",
   "license": "MIT",
   "types": "dist/index.d.ts",
   "scripts": {
-    "build": "tsc",
+    "build": "rimraf ./dist && tsc",
     "format": "prettier --write src",
     "lint": "tsc --noEmit && eslint --ext ts src",
-    "watch": "tsc --watch"
+    "watch": "tsc --watch",
+    "prepublishOnly": "npm run lint && npm run build"
   },
   "keywords": [
     "homebridge-plugin",
@@ -18,9 +20,10 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/petro-kushchak/homebridge-mi-humidifier-eve.git"
+    "url": "https://github.com/petro-kushchak/homebridge-mi-humidifier-eve"
   },
   "dependencies": {
+    "fakegato-history": "^0.6.2",
     "miio-api": "^0.4.1"
   },
   "engines": {
